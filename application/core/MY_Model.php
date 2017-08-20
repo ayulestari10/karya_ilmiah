@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+
 class MY_Model extends CI_Model
 {
 	protected $data = [];
@@ -39,21 +39,6 @@ class MY_Model extends CI_Model
 		return $query->result();
 	}
 
-	public function get_last_row($cond = '', $order_by = null)
-	{
-		if (is_array($cond))
-			$this->db->where($cond);
-		if (is_string($cond) && strlen($cond) > 3)
-			$this->db->where($cond);
-		if ($order_by != null)
-			$this->db->order_by($order_by, 'DESC');
-		$this->db->order_by($this->data['primary_key'], 'DESC');
-		$this->db->limit(1);
-		$query = $this->db->get($this->data['table_name']);
-
-		return $query->row();
-	}	
-
 	public function get_by_order_limit($ref, $order, $cond = '')
 	{
 		if (is_array($cond))
@@ -84,6 +69,14 @@ class MY_Model extends CI_Model
 		$query = $this->db->get($this->data['table_name']);
 
 		return $query->row();
+	}
+
+	public function get_num_row($cond)
+	{
+		$this->db->where($cond);
+		$query = $this->db->get($this->data['table_name']);
+
+		return $query->num_rows();
 	}
 
 	public function insert($data)
@@ -178,3 +171,6 @@ class MY_Model extends CI_Model
 	}
 
 }
+
+/* End of file MY_Model.php */
+/* Location: ./application/core/MY_Model.php */

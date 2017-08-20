@@ -1,25 +1,26 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+
 class MY_Controller extends CI_Controller
 {
-  public $title = ' | POLRESTA PALEMBANG';
+  public $title = 'PMB KM UNSRI';
 	public function __construct()
 	{
 		parent::__construct();
-		date_default_timezone_set("Asia/Jakarta");
+		// $this->load->library('lib_log');
 	}
 
-	public function template($data, $template = 'admin')
+	public function template($data, $role = 'mahasiswa')
 	{
-	    if ($template == 'admin') {
-	      return $this->load->view('admin/template/layout', $data);
-	    }
-	    elseif ($template == 'kabag_sumda') {
-	      return $this->load->view('kabag_sumda/template/layout', $data);
-	    }
-      elseif ($template == 'admin-gudang') {
-	      return $this->load->view('admin-gudang/template/layout', $data);
-	    }
+      if ($role == 'mahasiswa') {
+        return $this->load->view('mahasiswa/template/layout', $data);
+      } elseif ($role == 'admin') {
+        return $this->load->view('admin/template/layout', $data);
+      }  elseif ($role == 'admin-ormawa') {
+        return $this->load->view('admin-ormawa/template/layout', $data);
+      }elseif ($role == 'super-admin') {
+        return $this->load->view('super-admin/template/layout', $data);
+      }
+      return false;
 	}
 
 	public function POST($name)
@@ -57,3 +58,6 @@ class MY_Controller extends CI_Controller
 		echo '</pre>';
 	}
 }
+
+/* End of file MY_Controller.php */
+/* Location: ./application/core/MY_Controller.php */
